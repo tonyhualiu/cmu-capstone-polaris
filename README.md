@@ -16,7 +16,9 @@ You can use a fancy IDE with tomcat 7 server installed with it. Eclipse J2EE is 
 You can also download apache tomcat 7 server to your directory and start it from command line. If you choose to do that, several steps should be followed:
 
 1. use command in the directory where you have your pom.xml:
+	
 	mvn package
+
 It will generate the .war file in the /target directory.
 
 2. copy the .war file to your tomcat server, under webapps/ directory.
