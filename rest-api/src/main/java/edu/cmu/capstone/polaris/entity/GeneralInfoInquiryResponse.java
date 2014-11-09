@@ -1,6 +1,6 @@
 package edu.cmu.capstone.polaris.entity;
 
-public class GeneralInfoInquiryResponse extends GeneralInfo {
+public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 
 	private String source;
 	private String maritalStatus;

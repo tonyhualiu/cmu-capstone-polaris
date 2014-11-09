@@ -11,7 +11,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-import edu.cmu.capstone.polaris.entity.GeneralInfo;
+import edu.cmu.capstone.polaris.entity.GeneralCustomerInfo;
  
 @Path("/hello")
 @Api(value = "/hello", description = "say hello to a name")
@@ -21,12 +21,12 @@ public class HelloWorldService {
 	@Path("/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value="just to test the sample api")
-	public GeneralInfo getMsg(@ApiParam(value="param",required=true)@PathParam("param") String msg) {
+	public GeneralCustomerInfo getMsg(@ApiParam(value="param",required=true)@PathParam("param") String msg) {
  
 		String output = "Jersey say : " + msg;
  
 		// return Response.status(200).entity(output).build();
-		return new GeneralInfo(msg, "test");
+		return new GeneralCustomerInfo(msg, "test");
  
 	}
  

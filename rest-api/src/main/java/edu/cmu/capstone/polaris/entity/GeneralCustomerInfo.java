@@ -1,33 +1,32 @@
 package edu.cmu.capstone.polaris.entity;
 
 /**
- * This class only contains customer basic information for inqury, 
- * without any contact info.
+ * This class only contains customer basic information for inqury, without any
+ * contact info.
+ * 
  * @author tony
  *
  */
-public class GeneralInfo extends GeneralResponseMessage{
-	
+public class GeneralCustomerInfo extends GeneralResponseMessage {
+
 	private String partyId;
 	private String partyKey;
 	private String partyType;
 	private String ID;
 	private String IDType;
-	
+
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	
+
 	private String leadStage;
 	private String dateOfBirth;
 	private String gender;
-	
-	
-	
-	//must have
-	public GeneralInfo(){}
-	
-	public GeneralInfo(String id, String type){
+
+	public GeneralCustomerInfo() {
+	}
+
+	public GeneralCustomerInfo(String id, String type) {
 		setPartyID(id);
 		setPartyType(type);
 	}
@@ -119,6 +118,5 @@ public class GeneralInfo extends GeneralResponseMessage{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
-	
+
 }
