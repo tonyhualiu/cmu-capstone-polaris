@@ -5,6 +5,9 @@ package edu.cmu.capstone.polaris.entity;
  * @author tony
  *
  */
-public class GeneralCustomer {
-
+public class GeneralResponseMessage {
+	private String resultCode;
+	private String resultString;
+	private int totalRecordsFound;
+	
 }
