@@ -1,6 +1,6 @@
 package edu.cmu.capstone.polaris.entity;
 
-public class Emails {
+public class Email {
 	
 	private String emailAddressKey;
 	private String emailType;

@@ -1,6 +1,6 @@
 package edu.cmu.capstone.polaris.entity;
 
-public class Phones {
+public class Phone {
 	
 	private String phoneKey;
 	private String phoneType;

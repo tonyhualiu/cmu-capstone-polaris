@@ -1,6 +1,6 @@
 package edu.cmu.capstone.polaris.entity;
 
-public class Addresses {
+public class Address {
 	private String addressKey;
 	private String addressType;
 	private String addressLine1;

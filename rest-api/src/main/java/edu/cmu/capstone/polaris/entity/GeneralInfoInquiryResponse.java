@@ -18,6 +18,12 @@ public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 	private String clientCode;
 	private String clientStatus;
 
+	// JSON array for information
+	private Address[] addressList;
+	private Email[] emailList;
+	private Phone[] phoneList;
+	private SocialMedia[] socialAccountList;
+
 	public String getSource() {
 		return source;
 	}
@@ -120,6 +126,38 @@ public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 
 	public void setClientStatus(String clientStatus) {
 		this.clientStatus = clientStatus;
+	}
+
+	public Address[] getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(Address[] addressList) {
+		this.addressList = addressList;
+	}
+
+	public Email[] getEmailList() {
+		return emailList;
+	}
+
+	public void setEmailList(Email[] emailList) {
+		this.emailList = emailList;
+	}
+
+	public Phone[] getPhoneList() {
+		return phoneList;
+	}
+
+	public void setPhoneList(Phone[] phoneList) {
+		this.phoneList = phoneList;
+	}
+
+	public SocialMedia[] getSocialAccountList() {
+		return socialAccountList;
+	}
+
+	public void setSocialAccountList(SocialMedia[] socialAccountList) {
+		this.socialAccountList = socialAccountList;
 	}
 
 }
