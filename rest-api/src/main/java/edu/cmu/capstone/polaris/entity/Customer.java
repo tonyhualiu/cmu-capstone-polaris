@@ -1,6 +1,12 @@
 package edu.cmu.capstone.polaris.entity;
 
-public class Customer {
+/**
+ * This class only contains customer basic information for inqury, 
+ * without any contact info.
+ * @author tony
+ *
+ */
+public class Customer extends GeneralCustomer{
 	private String partyID;
 	private String partyType;
 	

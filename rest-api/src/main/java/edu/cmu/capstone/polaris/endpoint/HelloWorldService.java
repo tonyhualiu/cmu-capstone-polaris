@@ -26,7 +26,7 @@ public class HelloWorldService {
 		String output = "Jersey say : " + msg;
  
 		// return Response.status(200).entity(output).build();
-		return new Customer("test", "test");
+		return new Customer(msg, "test");
  
 	}
  
