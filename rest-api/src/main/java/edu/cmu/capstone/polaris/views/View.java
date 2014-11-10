@@ -1,0 +1,7 @@
+package edu.cmu.capstone.polaris.views;
+
+public class View {
+	public static class BasicView{}
+	public static class PhoneView extends BasicView{}
+	public static class AddressView extends BasicView{}
+}
