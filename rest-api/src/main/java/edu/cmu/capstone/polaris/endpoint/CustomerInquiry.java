@@ -37,10 +37,4 @@ public class CustomerInquiry {
 		return new GeneralInfoInquiryResponse();
 	}
 
-	@GET
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoInquiryResponse getAllContactInfo() {
-		return new GeneralInfoInquiryResponse();
-	}
 }
