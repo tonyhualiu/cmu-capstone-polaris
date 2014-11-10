@@ -8,3 +8,6 @@ To visit the interface, after you deploy the .war on the tomcat server, point yo
 
 visit http://localhost:8080/rest-api/v/hello/abc, you can find the API is responsing an Customer object in JSON format.
 
+#Nov 9, 2014
+
+Candace init project
