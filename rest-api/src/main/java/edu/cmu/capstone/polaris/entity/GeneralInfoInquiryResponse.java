@@ -10,7 +10,6 @@ public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 	private String source;
 	@JsonView(View.BasicView.class)
 	private String maritalStatus;
-
 	@JsonView(View.BasicView.class)
 	private String numOfChild;
 	@JsonView(View.BasicView.class)
@@ -38,9 +37,11 @@ public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 	// JSON array for information
 	@JsonView(View.AddressView.class)
 	private Address[] addressList;
+	@JsonView(View.EmailView.class)
 	private Email[] emailList;
 	@JsonView(View.PhoneView.class)
 	private Phone[] phoneList;
+	@JsonView(View.SocialAccountView.class)
 	private SocialMedia[] socialAccountList;
 
 	public String getSource() {

@@ -19,10 +19,10 @@ public class GeneralCustomerInfo extends GeneralResponseMessage {
 	private String partyKey;
 	@JsonView(View.BasicView.class)
 	private String partyType;
-	@JsonView(View.BasicView.class)
-	private String ID;
-	@JsonView(View.BasicView.class)
-	private String IDType;
+	// @JsonView(View.BasicView.class)
+	// private String ID;
+	// @JsonView(View.BasicView.class)
+	// private String IDType;
 
 	@JsonView(View.BasicView.class)
 	private String firstName;
@@ -70,21 +70,21 @@ public class GeneralCustomerInfo extends GeneralResponseMessage {
 		this.partyKey = partyKey;
 	}
 
-	public String getID() {
-		return ID;
-	}
-
-	public void setID(String iD) {
-		ID = iD;
-	}
-
-	public String getIDType() {
-		return IDType;
-	}
-
-	public void setIDType(String iDType) {
-		IDType = iDType;
-	}
+//	public String getID() {
+//		return ID;
+//	}
+//
+//	public void setID(String iD) {
+//		ID = iD;
+//	}
+//
+//	public String getIDType() {
+//		return IDType;
+//	}
+//
+//	public void setIDType(String iDType) {
+//		IDType = iDType;
+//	}
 
 	public String getFirstName() {
 		return firstName;
