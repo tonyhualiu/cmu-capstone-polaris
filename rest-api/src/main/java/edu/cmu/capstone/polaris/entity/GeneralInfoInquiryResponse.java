@@ -2,44 +2,49 @@ package edu.cmu.capstone.polaris.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import edu.cmu.capstone.polaris.views.View;
+import edu.cmu.capstone.polaris.views.Views;
 
 public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String source;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String maritalStatus;
+<<<<<<< HEAD
 	@JsonView(View.BasicView.class)
+=======
+
+	@JsonView(Views.BasicView.class)
+>>>>>>> upstream/master
 	private String numOfChild;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String assignedAgent;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String residentStatus;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String urgency;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String annualIncome;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String company;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String industry;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String educationQulification;
 
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String smokerStatus;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String clientCode;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String clientStatus;
 
 	// JSON array for information
-	@JsonView(View.AddressView.class)
+	@JsonView(Views.AddressView.class)
 	private Address[] addressList;
 	@JsonView(View.EmailView.class)
 	private Email[] emailList;
-	@JsonView(View.PhoneView.class)
+	@JsonView(Views.PhoneView.class)
 	private Phone[] phoneList;
 	@JsonView(View.SocialAccountView.class)
 	private SocialMedia[] socialAccountList;

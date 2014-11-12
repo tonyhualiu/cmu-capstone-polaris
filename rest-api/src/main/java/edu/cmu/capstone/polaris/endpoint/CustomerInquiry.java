@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.cmu.capstone.polaris.entity.*;
-import edu.cmu.capstone.polaris.views.View;
+import edu.cmu.capstone.polaris.views.Views;
 
 @Path("/customers")
 public class CustomerInquiry {
