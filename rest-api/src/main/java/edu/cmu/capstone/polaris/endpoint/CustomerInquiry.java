@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.cmu.capstone.polaris.entity.*;
-import edu.cmu.capstone.polaris.views.View;
+import edu.cmu.capstone.polaris.views.Views;
 
 @Path("/customers")
 public class CustomerInquiry {
@@ -36,7 +36,7 @@ public class CustomerInquiry {
 	@GET
 	@Path("/{id}/phone")
 	@Produces(MediaType.APPLICATION_JSON)
-	@JsonView(View.PhoneView.class)
+	@JsonView(Views.PhoneView.class)
 	public GeneralInfoInquiryResponse getPhone() {
 		return test;
 	}
@@ -44,7 +44,7 @@ public class CustomerInquiry {
 	@GET
 	@Path("/{id}/address")
 	@Produces(MediaType.APPLICATION_JSON)
-	@JsonView(View.AddressView.class)
+	@JsonView(Views.AddressView.class)
 	public GeneralInfoInquiryResponse getAddress() {
 		return test;
 	}

@@ -2,7 +2,7 @@ package edu.cmu.capstone.polaris.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import edu.cmu.capstone.polaris.views.View;
+import edu.cmu.capstone.polaris.views.Views;
 
 /**
  * This class contains the common information of search and inquiry
@@ -11,11 +11,11 @@ import edu.cmu.capstone.polaris.views.View;
  *
  */
 public class GeneralResponseMessage {
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String resultCode;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private String resultString;
-	@JsonView(View.BasicView.class)
+	@JsonView(Views.BasicView.class)
 	private int totalRecordsFound;
 
 	public String getResultCode() {
