@@ -1,7 +1,6 @@
 package edu.cmu.capstone.polaris.parser;
 
-import edu.cmu.capstone.polaris.request.InquiryRequest;
-import edu.cmu.capstone.polaris.request.SearchRequest;
+import edu.cmu.capstone.polaris.request.Request;
 
 /**
  * This interface defines all the parsing utility in the API.
@@ -9,6 +8,6 @@ import edu.cmu.capstone.polaris.request.SearchRequest;
  *
  */
 public interface Parser {
-	public InquiryRequest parseInquiryParameter(String param);
-	public SearchRequest parseSearchParameter(String param);
+	public Request parseCustomerInquiryParameter(String paramContactInfo);
+	public Request parseSearchParameter(String param);
 }

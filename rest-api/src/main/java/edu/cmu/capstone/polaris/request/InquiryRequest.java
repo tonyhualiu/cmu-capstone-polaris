@@ -1,5 +1,7 @@
 package edu.cmu.capstone.polaris.request;
 
-public class InquiryRequest {
+public class InquiryRequest extends Request{
 
+	
+	
 }
