@@ -11,6 +11,11 @@ import edu.cmu.capstone.polaris.views.Views;
  *
  */
 public class GeneralResponseMessage {
+	private enum StatusCode {
+		failed, success
+	}
+	@JsonView(Views.BasicView.class)
+	private StatusCode status;
 	@JsonView(Views.BasicView.class)
 	private String resultCode;
 	@JsonView(Views.BasicView.class)
