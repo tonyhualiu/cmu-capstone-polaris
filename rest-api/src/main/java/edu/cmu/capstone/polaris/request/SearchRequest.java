@@ -1,5 +1,5 @@
 package edu.cmu.capstone.polaris.request;
 
-public class SearchRequest {
+public class SearchRequest extends Request{
 
 }
