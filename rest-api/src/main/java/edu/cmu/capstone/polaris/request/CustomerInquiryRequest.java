@@ -1,6 +1,8 @@
 package edu.cmu.capstone.polaris.request;
 
-public class CustomerInquiryRequest {
+import scala.reflect.generic.Trees.This;
+
+public class CustomerInquiryRequest extends InquiryRequest{
 	private String customerID;
 	
 	private boolean hasAddress;
@@ -20,32 +22,41 @@ public class CustomerInquiryRequest {
 		return hasPhone;
 	}
 
-	public void requirePhone(boolean hasPhone) {
-		this.hasPhone = hasPhone;
+	public void requirePhone() {
+		this.hasPhone = true;
 	}
 
 	public boolean requestHasAddress() {
 		return hasAddress;
 	}
 
-	public void requireAddress(boolean hasAddress) {
-		this.hasAddress = hasAddress;
+	public void requireAddress() {
+		this.hasAddress = true;
 	}
 
 	public boolean requestHasEmail() {
 		return hasEmail;
 	}
 
-	public void requireEmail(boolean hasEmail) {
-		this.hasEmail = hasEmail;
+	public void requireEmail() {
+		this.hasEmail = true;
 	}
 
 	public boolean requestHasSocialAccount() {
 		return hasSocialAccount;
 	}
 
-	public void requireSocialAccount(boolean hasSocialAccount) {
-		this.hasSocialAccount = hasSocialAccount;
+	public void requireSocialAccount() {
+		this.hasSocialAccount = true;
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		return sb.append(super.toString()).append("\n")
+		  .append("CustomerID: ").append(this.customerID).append("\n")
+		  .append("Address: ").append(this.hasAddress).append("\n")
+		  .append("Email: ").append(this.hasEmail).append("\n")
+		  .append("SocialAccount: ").append(this.hasSocialAccount).toString();
 	}
 
 
