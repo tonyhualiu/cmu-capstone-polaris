@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import edu.cmu.capstone.polaris.error.InquiryFieldNotExistException;
 import edu.cmu.capstone.polaris.request.CustomerInquiryRequest;
+import edu.cmu.capstone.polaris.request.CustomerSearchRequest;
 import edu.cmu.capstone.polaris.request.InquiryRequest;
 import edu.cmu.capstone.polaris.request.Request;
 import edu.cmu.capstone.polaris.request.SearchRequest;
@@ -50,8 +51,8 @@ public class PolarisAPIParser implements Parser {
 	}
 
 	@Override
-	public SearchRequest parseSearchParameter(String param) {
-		// TODO Auto-generated method stub
+	public CustomerSearchRequest parseSearchParameter(String paramSearch) {
+		
 		return null;
 	}
 
