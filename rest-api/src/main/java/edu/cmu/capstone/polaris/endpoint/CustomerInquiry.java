@@ -1,11 +1,22 @@
 package edu.cmu.capstone.polaris.endpoint;
 
+import java.io.IOException;
+import java.util.*;
+
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 import edu.cmu.capstone.polaris.entity.*;
 import edu.cmu.capstone.polaris.views.Views;
@@ -26,11 +37,35 @@ public class CustomerInquiry {
 		test.setAddressList(new Address[]{add});
 	}
 
+	//****Please use this one
+	//****The URL format /customers/{id}?info=[email,phone,address]
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoInquiryResponse getComplete() {
-		return test;
+	public String getComplete(@PathParam("id") String userId,
+            @DefaultValue("phone,address,email") @QueryParam("info") String fields)  {
+		GeneralInfoInquiryResponse genResponse=null;
+		
+		StringTokenizer st = new StringTokenizer(fields, ",");
+	    Set<String> filterProperties = new HashSet<String>();
+	    while (st.hasMoreTokens()) {
+	        filterProperties.add(st.nextToken());
+	    }
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    FilterProvider filters = new SimpleFilterProvider().addFilter("filter",
+	                SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
+
+	    String jsonResponse="";
+	    try {
+	    	ObjectWriter writer = mapper.writer(filters);
+	    	jsonResponse=writer.writeValueAsString(genResponse);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    return e.getMessage();
+	    }
+	    
+		return jsonResponse;
 	}
 
 	@GET
