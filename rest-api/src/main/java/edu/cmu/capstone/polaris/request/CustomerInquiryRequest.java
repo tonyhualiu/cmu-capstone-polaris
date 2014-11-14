@@ -1,7 +1,5 @@
 package edu.cmu.capstone.polaris.request;
 
-import scala.reflect.generic.Trees.This;
-
 public class CustomerInquiryRequest extends InquiryRequest{
 	private String customerID;
 	

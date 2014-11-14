@@ -11,6 +11,15 @@ import edu.cmu.capstone.polaris.request.Request;
 import edu.cmu.capstone.polaris.request.SearchRequest;
 
 public class PolarisAPIParser implements Parser {
+	
+	private static PolarisAPIParser parser = null;
+	protected PolarisAPIParser(){}
+	public static PolarisAPIParser getParser(){
+		if(parser == null){
+			parser = new PolarisAPIParser();
+		}
+		return parser;
+	}
 
 	private static String ADDRESS = "address";
 	private static String PHONE = "phone";
@@ -19,8 +28,8 @@ public class PolarisAPIParser implements Parser {
 
 	@Override
 	public CustomerInquiryRequest parseCustomerInquiryParameter(String customerID,
-			String paramContactInfo) throws InquiryFieldNotExistException {
-		String[] tokens = paramContactInfo.trim().split(",");
+			String paramInfo) throws InquiryFieldNotExistException {
+		String[] tokens = paramInfo.trim().split(",");
 		CustomerInquiryRequest inquiryRequest = new CustomerInquiryRequest();
 		for (String s : tokens) {
 			String trimedlowercase = s.trim().toLowerCase();
