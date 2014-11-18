@@ -2,8 +2,10 @@ package com.seec.insurance.plm.customerinquiry.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.seec.insurance.common.model.ResponseMessage;
 
+@JsonFilter("inquiryFilter")
 public class CustomerInquiryResponse extends ResponseMessage {
 
 	CustomerDetails customerDetails;

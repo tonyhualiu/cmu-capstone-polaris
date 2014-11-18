@@ -1,6 +1,5 @@
-package edu.cmu.capstone.polaris.parser;
+package edu.cmu.capstone.polaris.util;
 
-import edu.cmu.capstone.polaris.request.CustomerInquiryRequest;
 import edu.cmu.capstone.polaris.request.Request;
 
 /**
@@ -9,6 +8,6 @@ import edu.cmu.capstone.polaris.request.Request;
  *
  */
 public interface Parser {
-	public CustomerInquiryRequest parseCustomerInquiryParameter(String customerID, String paramContactInfo);
+	public String[] parseCustomerInquiryParameter(String paramContactInfo);
 	public Request parseSearchParameter(String param);
 }

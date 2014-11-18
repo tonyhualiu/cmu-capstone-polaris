@@ -1,20 +1,15 @@
 package edu.cmu.capstone.polaris.request;
 
-public class CustomerInquiryRequest extends InquiryRequest{
-	private String customerID;
-	
+import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryRequest;
+
+
+
+public class CMUCustomerInquiryRequest extends CustomerInquiryRequest{
+
 	private boolean hasAddress;
 	private boolean hasPhone;
 	private boolean hasEmail;
 	private boolean hasSocialAccount;
-
-	public String getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
-	}
 	
 	public boolean requestHasPhone() {
 		return hasPhone;
@@ -51,11 +46,9 @@ public class CustomerInquiryRequest extends InquiryRequest{
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		return sb.append(super.toString()).append("\n")
-		  .append("CustomerID: ").append(this.customerID).append("\n")
 		  .append("Address: ").append(this.hasAddress).append("\n")
 		  .append("Email: ").append(this.hasEmail).append("\n")
 		  .append("SocialAccount: ").append(this.hasSocialAccount).toString();
 	}
-
-
+	
 }
