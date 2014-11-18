@@ -22,7 +22,7 @@ import edu.cmu.capstone.polaris.entity.GeneralInfoUpdateResponse;
 import edu.cmu.capstone.polaris.entity.Phone;
 
 @Path("/customers")
-@Api(value = "/custermers", description = "End point")
+@Api(value = "/customers", description = "Inquiry, Search, Create and Update customer information")
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerEndpoint {
 
@@ -48,7 +48,7 @@ public class CustomerEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public GeneralInfoInquiryResponse getAll(
 			@PathParam("id") String id,
-			@QueryParam("info") @DefaultValue("all") @ApiParam(value = "info", required = false) String inquiryParam) {
+			@ApiParam(value = "info", required = false) @QueryParam("info") @DefaultValue("all") String inquiryParam) {
 		return inquiryTest;
 	}
 
@@ -57,24 +57,27 @@ public class CustomerEndpoint {
 	@ApiOperation(value = "Update information for this customer", notes = "update information for a customer", response = GeneralInfoUpdateResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
 	public GeneralInfoUpdateResponse updateAll(@PathParam("id") String id) {
+
 		return updateTest;
 	}
 
 	@POST
 	@ApiOperation(value = "Create a new customer", notes = "Create a new customer using the information in the JSON message", response = GeneralInfoCreateResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/")
 	public GeneralInfoCreateResponse create() {
-		return createTest;
+		return createTest;	
 	}
 
 	@GET
-	@ApiOperation(value = "/custermers", notes = "Search - search customer information", response = GeneralInfoSearchResponse.class, responseContainer = "")
+	@Path("/")
+	@ApiOperation(value = "/customers", notes = "Search - search customer information", response = GeneralInfoSearchResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
 	public GeneralInfoSearchResponse searchBy(
-			@QueryParam("search") @ApiParam(value = "specific search requirement", required = true) String searchString,
-			@QueryParam("sort") @DefaultValue("asc_rank") @ApiParam(value = "sorting ascending or descending", required = false) String order,
-			@QueryParam("offset") @DefaultValue("0") @ApiParam(value = "pagination offset", required = false) int offest,
-			@QueryParam("limit") @DefaultValue("10") @ApiParam(value = "pagination limit", required = false) int limit) {
+			@ApiParam(value = "specific search requirement", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
 		return searchTest;
 	}
 
