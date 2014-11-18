@@ -1,7 +1,6 @@
 package com.seec.insurance.plm.customerinquiry.dataaccess;
 
 import com.seec.insurance.plm.customerinquiry.interfaces.ICustomerInquiry;
-import com.seec.insurance.plm.customerinquiry.model.CustomerDetails;
 import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryRequest;
 import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
 
