@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
@@ -20,36 +21,84 @@ import edu.cmu.capstone.polaris.entity.GeneralInfoInquiryResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoSearchResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoUpdateResponse;
 import edu.cmu.capstone.polaris.entity.Phone;
+import edu.cmu.capstone.polaris.factory.CMUResponseFactory;
+import edu.cmu.capstone.polaris.request.CMUCustomerInquiryRequest;
+import edu.cmu.capstone.polaris.util.PolarisAPIJsonFilter;
+import edu.cmu.capstone.polaris.util.PolarisAPIParser;
 
 @Path("/customers")
 @Api(value = "/customers", description = "Inquiry, Search, Create and Update customer information")
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerEndpoint {
 
+	public static String PARAM_INFO_NONE = "none";
+	public static String PARAM_INFO_PHONE = "phone";
+	public static String PARAM_INFO_EMAIL = "email";
+	public static String PARAM_INFO_ADDRESS = "address";
+	public static String PARAM_INFO_ALL = "all";
+
 	private static GeneralInfoInquiryResponse inquiryTest;
 	private static GeneralInfoUpdateResponse updateTest;
 	private static GeneralInfoCreateResponse createTest;
 	private static GeneralInfoSearchResponse searchTest;
 
-	static {
-		inquiryTest = new GeneralInfoInquiryResponse();
-		Phone p = new Phone();
-		p.setDialNumber("123");
-		inquiryTest.setPhoneList(new Phone[] { p });
-		inquiryTest.setResultCode("123");
-		Address add = new Address();
-		add.setAddressCity("Pittsburgh");
-		inquiryTest.setAddressList(new Address[] { add });
-	}
-
+	/**
+	 * With the current data access interface, we are not able to response
+	 * combination of contact information.
+	 * 
+	 * @param userId
+	 * @param fields
+	 * @return
+	 */
 	@GET
 	@Path("/{id}")
 	@ApiOperation(value = "Get all information for this customer", notes = "Get all the information for a particular customer", response = GeneralInfoInquiryResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoInquiryResponse getAll(
-			@PathParam("id") String id,
-			@ApiParam(value = "info", required = false) @QueryParam("info") @DefaultValue("all") String inquiryParam) {
-		return inquiryTest;
+	public String customerInquiry(@PathParam("id") String userId,
+			@QueryParam("info") @DefaultValue("none") String fields) {
+		
+		String[] params = null;
+		try {
+			params = PolarisAPIParser.getParser()
+					.parseCustomerInquiryParameter(fields);
+		} catch (Exception e) {
+			// TODO: handle the exception when user input a unrecognizable field
+		}
+		
+		//for now, we assume the parsing result will be only one parameter
+		CMUCustomerInquiryRequest cir = new CMUCustomerInquiryRequest();
+		cir.setId(userId);
+		
+		addFiledToRequest(cir, params);
+		
+		CustomerInquiryResponse response = CMUResponseFactory.getInstance().getCustomerInquiryResponse(cir);
+		
+		String jsonResponse = null;
+		
+		jsonResponse = PolarisAPIJsonFilter.getInstance().customerInquiryResponseToJSON(response, params);
+		
+		return jsonResponse;
+	}
+	
+	private void addFiledToRequest(CMUCustomerInquiryRequest request, String[] params){
+		if(params[0].equals(PARAM_INFO_ADDRESS)){
+			request.requireAddress();
+			return;
+		}
+		else if(params[0].equals(PARAM_INFO_EMAIL)){
+			request.requireEmail();
+			return;
+		}
+		else if(params[0].equals(PARAM_INFO_PHONE)){
+			request.requestHasPhone();
+			return;
+		}
+		else if(params[0].equals(PARAM_INFO_ALL)){
+			request.requireEmail();
+			request.requirePhone();
+			request.requireAddress();
+			return;
+		}
 	}
 
 	@PUT
@@ -66,7 +115,7 @@ public class CustomerEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/")
 	public GeneralInfoCreateResponse create() {
-		return createTest;	
+		return createTest;
 	}
 
 	@GET
