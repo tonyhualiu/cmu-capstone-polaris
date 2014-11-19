@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
+import com.seec.insurance.plm.customersearch.model.CustomerSearchResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
@@ -22,7 +23,9 @@ import edu.cmu.capstone.polaris.entity.GeneralInfoSearchResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoUpdateResponse;
 import edu.cmu.capstone.polaris.entity.Phone;
 import edu.cmu.capstone.polaris.factory.CMUResponseFactory;
+import edu.cmu.capstone.polaris.factory.CustomerSearchShortcutType;
 import edu.cmu.capstone.polaris.request.CMUCustomerInquiryRequest;
+import edu.cmu.capstone.polaris.request.CMUCustomerSearchRequest;
 import edu.cmu.capstone.polaris.util.PolarisAPIJsonFilter;
 import edu.cmu.capstone.polaris.util.PolarisAPIParser;
 
@@ -36,11 +39,8 @@ public class CustomerEndpoint {
 	public static String PARAM_INFO_EMAIL = "email";
 	public static String PARAM_INFO_ADDRESS = "address";
 	public static String PARAM_INFO_ALL = "all";
-
-	private static GeneralInfoInquiryResponse inquiryTest;
-	private static GeneralInfoUpdateResponse updateTest;
-	private static GeneralInfoCreateResponse createTest;
-	private static GeneralInfoSearchResponse searchTest;
+	public static String PARAM_SORT_ACK = "ack_rank";
+	public static String PARAM_SORT_DESC = "desc_rank";
 
 	/**
 	 * With the current data access interface, we are not able to response
@@ -56,7 +56,7 @@ public class CustomerEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String customerInquiry(@PathParam("id") String userId,
 			@QueryParam("info") @DefaultValue("none") String fields) {
-		
+
 		String[] params = null;
 		try {
 			params = PolarisAPIParser.getParser()
@@ -64,36 +64,36 @@ public class CustomerEndpoint {
 		} catch (Exception e) {
 			// TODO: handle the exception when user input a unrecognizable field
 		}
-		
-		//for now, we assume the parsing result will be only one parameter
+
+		// for now, we assume the parsing result will be only one parameter
 		CMUCustomerInquiryRequest cir = new CMUCustomerInquiryRequest();
 		cir.setId(userId);
-		
+
 		addFiledToRequest(cir, params);
-		
-		CustomerInquiryResponse response = CMUResponseFactory.getInstance().getCustomerInquiryResponse(cir);
-		
+
+		CustomerInquiryResponse response = CMUResponseFactory.getInstance()
+				.getCustomerInquiryResponse(cir);
+
 		String jsonResponse = null;
-		
-		jsonResponse = PolarisAPIJsonFilter.getInstance().customerInquiryResponseToJSON(response, params);
-		
+
+		jsonResponse = PolarisAPIJsonFilter.getInstance()
+				.customerInquiryResponseToJSON(response, params);
+
 		return jsonResponse;
 	}
-	
-	private void addFiledToRequest(CMUCustomerInquiryRequest request, String[] params){
-		if(params[0].equals(PARAM_INFO_ADDRESS)){
+
+	private void addFiledToRequest(CMUCustomerInquiryRequest request,
+			String[] params) {
+		if (params[0].equals(PARAM_INFO_ADDRESS)) {
 			request.requireAddress();
 			return;
-		}
-		else if(params[0].equals(PARAM_INFO_EMAIL)){
+		} else if (params[0].equals(PARAM_INFO_EMAIL)) {
 			request.requireEmail();
 			return;
-		}
-		else if(params[0].equals(PARAM_INFO_PHONE)){
+		} else if (params[0].equals(PARAM_INFO_PHONE)) {
 			request.requestHasPhone();
 			return;
-		}
-		else if(params[0].equals(PARAM_INFO_ALL)){
+		} else if (params[0].equals(PARAM_INFO_ALL)) {
 			request.requireEmail();
 			request.requirePhone();
 			request.requireAddress();
@@ -101,33 +101,203 @@ public class CustomerEndpoint {
 		}
 	}
 
-	@PUT
-	@Path("/{id}")
-	@ApiOperation(value = "Update information for this customer", notes = "update information for a customer", response = GeneralInfoUpdateResponse.class, responseContainer = "")
-	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoUpdateResponse updateAll(@PathParam("id") String id) {
+	/*
+	 * @PUT
+	 * 
+	 * @Path("/{id}")
+	 * 
+	 * @ApiOperation(value = "Update information for this customer", notes =
+	 * "update information for a customer", response =
+	 * GeneralInfoUpdateResponse.class, responseContainer = "")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public GeneralInfoUpdateResponse
+	 * updateAll(@PathParam("id") String id) {
+	 * 
+	 * return updateTest; }
+	 * 
+	 * @POST
+	 * 
+	 * @ApiOperation(value = "Create a new customer", notes =
+	 * "Create a new customer using the information in the JSON message",
+	 * response = GeneralInfoCreateResponse.class, responseContainer = "")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON)
+	 * 
+	 * @Path("/") public GeneralInfoCreateResponse create() { return createTest;
+	 * }
+	 * 
+	 * @GET
+	 * 
+	 * @Path("/")
+	 * 
+	 * @ApiOperation(value = "/customers", notes =
+	 * "Search - search customer information", response =
+	 * GeneralInfoSearchResponse.class, responseContainer = "")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public GeneralInfoSearchResponse
+	 * searchBy(
+	 * 
+	 * @ApiParam(value = "specific search requirement", required = true)
+	 * @QueryParam("search") String searchString,
+	 * 
+	 * @ApiParam(value = "sorting ascending or descending", required = false)
+	 * @QueryParam("sort") @DefaultValue("asc_rank") String order,
+	 * 
+	 * @ApiParam(value = "pagination offset", required = false)
+	 * @QueryParam("offset") @DefaultValue("0") int offest,
+	 * 
+	 * @ApiParam(value = "pagination limit", required = false)
+	 * @QueryParam("limit") @DefaultValue("10") int limit) { return searchTest;
+	 * }
+	 */
 
-		return updateTest;
-	}
-
-	@POST
-	@ApiOperation(value = "Create a new customer", notes = "Create a new customer using the information in the JSON message", response = GeneralInfoCreateResponse.class, responseContainer = "")
+	@GET
+	@Path("/search_by_zipcode")
+	@ApiOperation(value = "search customer infomation by zipcode")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/")
-	public GeneralInfoCreateResponse create() {
-		return createTest;
+	public CustomerSearchResponse searchByZipcode(
+			@ApiParam(value = "the zipcode to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort")  String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
+
+		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
+		request.setZip(searchString);
+		request.setLimit(limit);
+		request.setOffset(offest);
+		request.setSortCondition(PolarisAPIParser.getParser()
+				.parseSortConditionFromParameter(order));
+
+		// TODO: catch exceptions
+		CustomerSearchResponse response = CMUResponseFactory.getInstance()
+				.getCustomerSearchResponseWithShortcut(request,
+						CustomerSearchShortcutType.ZIPCODE);
+
+		return response;
 	}
 
 	@GET
-	@Path("/")
-	@ApiOperation(value = "/customers", notes = "Search - search customer information", response = GeneralInfoSearchResponse.class, responseContainer = "")
+	@Path("/search_by_city")
+	@ApiOperation(value = "search customer infomation by city")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoSearchResponse searchBy(
-			@ApiParam(value = "specific search requirement", required = true) @QueryParam("search") String searchString,
-			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+	public CustomerSearchResponse searchByCity(
+			@ApiParam(value = "the city to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort")  String order,
 			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
-		return searchTest;
+		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
+		request.setCity(searchString);
+		request.setLimit(limit);
+		request.setOffset(offest);
+		request.setSortCondition(PolarisAPIParser.getParser()
+				.parseSortConditionFromParameter(order));
+
+		// TODO: catch exceptions
+		CustomerSearchResponse response = CMUResponseFactory.getInstance()
+				.getCustomerSearchResponseWithShortcut(request,
+						CustomerSearchShortcutType.CITY);
+
+		return response;
+	}
+
+	/*
+	 * @GET
+	 * 
+	 * @Path("search_by_state")
+	 * 
+	 * @ApiOperation(value = "search customer infomation by state")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public CustomerSearchResponse
+	 * searchByState(
+	 * 
+	 * @ApiParam(value = "the state to search with", required = true)
+	 * @QueryParam("search") String searchString,
+	 * 
+	 * @ApiParam(value = "sorting ascending or descending", required = false)
+	 * @QueryParam("sort") @DefaultValue("asc_rank") String order,
+	 * 
+	 * @ApiParam(value = "pagination offset", required = false)
+	 * @QueryParam("offset") @DefaultValue("0") int offest,
+	 * 
+	 * @ApiParam(value = "pagination limit", required = false)
+	 * @QueryParam("limit") @DefaultValue("10") int limit){ return null; }
+	 */
+
+	@GET
+	@Path("/search_by_firstname")
+	@ApiOperation(value = "search customer infomation by firstname")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByFirstname(
+			@ApiParam(value = "the firstname to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
+		
+		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
+		request.setFirstName(searchString);
+		request.setLimit(limit);
+		request.setOffset(offest);
+		request.setSortCondition(PolarisAPIParser.getParser()
+				.parseSortConditionFromParameter(order));
+
+		// TODO: catch exceptions
+		CustomerSearchResponse response = CMUResponseFactory.getInstance()
+				.getCustomerSearchResponseWithShortcut(request,
+						CustomerSearchShortcutType.FIRSTNAME);
+
+		return response;
+	}
+
+	@GET
+	@Path("/search_by_lastname")
+	@ApiOperation(value = "search customer infomation by lastname")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByLastname(
+			@ApiParam(value = "the lastname to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
+		
+		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
+		request.setCity(searchString);
+		request.setLimit(limit);
+		request.setOffset(offest);
+		request.setSortCondition(PolarisAPIParser.getParser()
+				.parseSortConditionFromParameter(order));
+
+		// TODO: catch exceptions
+		CustomerSearchResponse response = CMUResponseFactory.getInstance()
+				.getCustomerSearchResponseWithShortcut(request,
+						CustomerSearchShortcutType.LASTNAME);
+
+		return response;
+	}
+	
+	@GET
+	@Path("/search_by_fullname")
+	@ApiOperation(value = "search customer infomation by fullname")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByFullname(
+			@ApiParam(value = "the fullname to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
+		
+		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
+		String[] names = PolarisAPIParser.getParser().parserCustomerSearchFullnameParameter(searchString);
+		request.setFirstName(names[0]);
+		request.setLastName(names[1]);
+		request.setLimit(limit);
+		request.setOffset(offest);
+		request.setSortCondition(PolarisAPIParser.getParser()
+				.parseSortConditionFromParameter(order));
+
+		// TODO: catch exceptions
+		CustomerSearchResponse response = CMUResponseFactory.getInstance()
+				.getCustomerSearchResponseWithShortcut(request,
+						CustomerSearchShortcutType.FULLNAME);
+
+		return response;
 	}
 
 }

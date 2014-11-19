@@ -5,7 +5,10 @@ import java.util.Set;
 
 import edu.cmu.capstone.polaris.endpoint.CustomerEndpoint;
 import edu.cmu.capstone.polaris.error.InquiryFieldNotExistException;
-import edu.cmu.capstone.polaris.request.CustomerSearchRequest;
+import edu.cmu.capstone.polaris.error.SearchResultNotFoundException;
+import edu.cmu.capstone.polaris.search.SortCondition;
+import edu.cmu.capstone.polaris.search.SortType;
+
 
 
 public class PolarisAPIParser implements Parser {
@@ -44,12 +47,44 @@ public class PolarisAPIParser implements Parser {
 
 		return tokens;
 	}
-
+	
 	@Override
-	public CustomerSearchRequest parseSearchParameter(String paramSearch) {
+	public SortCondition parseSortConditionFromParameter(String paramSort) throws SearchResultNotFoundException{
+		if(paramSort == null){
+			return null;
+		}
+		String[] tokens = paramSort.split(".");
+		if(tokens.length != 2){
+			throw new SearchResultNotFoundException(paramSort+": sorting parameter not recoginized.");
+		}
+		//TODO: we can also check if the first part is a valid sorting field.
 		
-		return null;
+		SortCondition sortCondition = new SortCondition();
+		
+		//check if the sorting type matches asc_rank or desc_rank
+		if(tokens[1].equalsIgnoreCase(CustomerEndpoint.PARAM_SORT_ACK)){
+			sortCondition.setOrder(SortType.ASC);
+		}
+		else if(tokens[1].equalsIgnoreCase(CustomerEndpoint.PARAM_SORT_DESC)){
+			sortCondition.setOrder(SortType.DESC);
+		}
+		else{
+			throw new SearchResultNotFoundException(paramSort+": sorting parameter not recoginized.");
+		}
+		
+		return sortCondition;
+		
 	}
+	
+	@Override
+	public String[] parserCustomerSearchFullnameParameter(String paramFullname)throws SearchResultNotFoundException {
+		String[] tokens = paramFullname.split(" ");
+		if(tokens.length != 2){
+			throw new SearchResultNotFoundException(paramFullname+": fullname unparsable.");
+		}
+		return tokens;
+	}
+
 
 	// @Test
 	// public void testPolarisAPIParser(){
@@ -61,4 +96,6 @@ public class PolarisAPIParser implements Parser {
 	public static void main(String[] args){
 		System.out.println(new PolarisAPIParser().parseCustomerInquiryParameter("none")[0]);
 	}
+
+
 }
