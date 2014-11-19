@@ -140,6 +140,8 @@ public class CustomerEndpoint {
 			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
 			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		
+		
 		return null;
 	}
 	
@@ -155,7 +157,7 @@ public class CustomerEndpoint {
 		return null;
 	}
 	
-	@GET
+	/*@GET
 	@Path("search_by_state")
 	@ApiOperation(value = "search customer infomation by state")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -165,7 +167,7 @@ public class CustomerEndpoint {
 			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
 		return null;
-	}
+	}*/
 	
 	@GET
 	@Path("search_by_firstname")
