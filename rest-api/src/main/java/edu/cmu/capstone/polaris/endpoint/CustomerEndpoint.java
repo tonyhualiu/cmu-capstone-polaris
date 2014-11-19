@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
+import com.seec.insurance.plm.customersearch.model.CustomerSearchResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
@@ -101,7 +102,7 @@ public class CustomerEndpoint {
 		}
 	}
 
-	@PUT
+	/*@PUT
 	@Path("/{id}")
 	@ApiOperation(value = "Update information for this customer", notes = "update information for a customer", response = GeneralInfoUpdateResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -128,6 +129,66 @@ public class CustomerEndpoint {
 			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
 		return searchTest;
+	}*/
+	
+	@GET
+	@Path("search_by_zipcode")
+	@ApiOperation(value = "search customer infomation by zipcode")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByZipcode(
+			@ApiParam(value = "the zipcode to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		return null;
+	}
+	
+	@GET
+	@Path("search_by_city")
+	@ApiOperation(value = "search customer infomation by zipcode")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByCity(
+			@ApiParam(value = "the city to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		return null;
+	}
+	
+	@GET
+	@Path("search_by_state")
+	@ApiOperation(value = "search customer infomation by state")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByState(
+			@ApiParam(value = "the state to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		return null;
+	}
+	
+	@GET
+	@Path("search_by_firstname")
+	@ApiOperation(value = "search customer infomation by firstname")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByFirstname(
+			@ApiParam(value = "the firstname to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		return null;
+	}
+	
+	@GET
+	@Path("search_by_lastname")
+	@ApiOperation(value = "search customer infomation by lastname")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CustomerSearchResponse searchByLastname(
+			@ApiParam(value = "the lastname to search with", required = true) @QueryParam("search") String searchString,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") @DefaultValue("asc_rank") String order,
+			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
+			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit){
+		return null;
 	}
 
 }
