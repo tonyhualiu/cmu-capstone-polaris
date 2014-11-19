@@ -11,3 +11,7 @@ visit http://localhost:8080/rest-api/v/hello/abc, you can find the API is respon
 #Nov 9, 2014
 
 Candace init project
+
+#Nov 18, 2014
+
+You can test on Inquiry and Shortcut search endpoints.
