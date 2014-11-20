@@ -1,5 +1,6 @@
 package edu.cmu.capstone.polaris.views;
 
+@Deprecated
 public class Views {
 	public static class BasicView{}
 	public static class PhoneView extends BasicView{}

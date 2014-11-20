@@ -1,5 +1,5 @@
 package edu.cmu.capstone.polaris.entity;
-
+@Deprecated
 public class Address {
 	private String addressKey;
 	private String addressType;

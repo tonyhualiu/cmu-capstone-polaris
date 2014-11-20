@@ -8,6 +8,11 @@ import com.seec.insurance.plm.customersearch.model.CustomerSearchResponse;
 import edu.cmu.capstone.polaris.request.CMUCustomerInquiryRequest;
 import edu.cmu.capstone.polaris.request.CMUCustomerSearchRequest;
 
+/**
+ * CMU's Implementation of ResponseFactory class.
+ * @author tony
+ *
+ */
 public class CMUResponseFactory implements ResponseFactory{
 	
 	private static CMUResponseFactory factory = null;
@@ -59,7 +64,7 @@ public class CMUResponseFactory implements ResponseFactory{
 		default:
 			break;
 		}
-		throw null;
+		return null;
 	}
 
 }

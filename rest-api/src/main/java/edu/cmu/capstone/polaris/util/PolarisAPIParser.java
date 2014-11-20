@@ -10,7 +10,11 @@ import edu.cmu.capstone.polaris.search.SortCondition;
 import edu.cmu.capstone.polaris.search.SortType;
 
 
-
+/**
+ * CMU's Implmentation for Parser interface.
+ * @author tony
+ *
+ */
 public class PolarisAPIParser implements Parser {
 	
 	private static PolarisAPIParser parser = null;

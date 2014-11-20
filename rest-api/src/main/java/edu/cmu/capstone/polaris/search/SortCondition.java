@@ -1,5 +1,11 @@
 package edu.cmu.capstone.polaris.search;
 
+/**
+ * This class carries the sorting information.
+ * @see PolarisAPIParser
+ * @author tony
+ *
+ */
 public class SortCondition {
 	private String sortOnField;
 	private SortType order;
