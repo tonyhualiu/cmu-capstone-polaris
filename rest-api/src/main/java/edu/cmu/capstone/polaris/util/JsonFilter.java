@@ -10,8 +10,8 @@ import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
 public interface JsonFilter {
 	/**
 	 * Map the CustomerInquiryResponse to JSON message. 
-	 * @param customerInquiryResponse
-	 * @return
+	 * @param customerInquiryResponse - inquiry response
+	 * @return - the JSON string that only carries neccessary information
 	 */
 	public String customerInquiryResponseToJSON(CustomerInquiryResponse customerInquiryResponse, String[] requiredField);
 }

@@ -11,6 +11,7 @@ import edu.cmu.capstone.polaris.views.Views;
  * @author tony
  *
  */
+@Deprecated
 public class GeneralCustomerInfo extends GeneralResponseMessage {
 
 	@JsonView(Views.BasicView.class)

@@ -15,3 +15,11 @@ Candace init project
 #Nov 18, 2014
 
 You can test on Inquiry and Shortcut search endpoints.
+
+#Nov 19, 2014
+
+Update documentation. Noted that deprecated classes exist because:
+
+1. when we merged the model from Polaris, some of the models are duplicated. So we stick to the provided model.
+
+2. The current data access layer only allow us to finish some part of the API functionality. So some of the previous classes are useless at this time.

@@ -3,7 +3,7 @@ package edu.cmu.capstone.polaris.entity;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.cmu.capstone.polaris.views.Views;
-
+@Deprecated
 public class GeneralInfoInquiryResponse extends GeneralCustomerInfo {
 
 	@JsonView(Views.BasicView.class)

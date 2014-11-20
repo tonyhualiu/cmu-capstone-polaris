@@ -13,6 +13,11 @@ import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
 
 import edu.cmu.capstone.polaris.endpoint.CustomerEndpoint;
 
+/**
+ * CMU's implementation of JsonFilter interface.
+ * @author tony
+ *
+ */
 public class PolarisAPIJsonFilter implements JsonFilter{
 	
 	public static String FILTER_ATTRIBUTE_ADDRESS = "addressList";
