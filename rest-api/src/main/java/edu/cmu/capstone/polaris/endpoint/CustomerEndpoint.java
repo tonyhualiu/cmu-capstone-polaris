@@ -54,7 +54,7 @@ public class CustomerEndpoint {
 	 */
 	@GET
 	@Path("/{id}")
-	@ApiOperation(value = "Get all information for this customer", notes = "Get all the information for a particular customer", response = GeneralInfoInquiryResponse.class, responseContainer = "")
+	@ApiOperation(value = "customer inquiry", notes = "Get complete cutomer information with required contact infomation", response = CustomerInquiryResponse.class, responseContainer = "")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String customerInquiry(@PathParam("id") String userId,
 			@QueryParam("info") @DefaultValue("none") String fields) {
