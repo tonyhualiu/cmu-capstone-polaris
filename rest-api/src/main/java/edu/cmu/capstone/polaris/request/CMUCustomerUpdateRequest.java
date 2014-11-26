@@ -8,7 +8,7 @@ import com.seec.insurance.plm.customerinquiry.model.Phone;
 //ignore the undefined fields in the coming json request.
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CMUCustomerUpdateRequest {
-	private String partyID;
+	private String partyId;
 	private String firstName;
 	
 	private String addressKeyContent;
@@ -42,12 +42,6 @@ public class CMUCustomerUpdateRequest {
 	public void setPhoneKey(String phoneKey) {
 		this.phoneKey = phoneKey;
 	}
-	public String getPartyID() {
-		return partyID;
-	}
-	public void setPartyID(String partyID) {
-		this.partyID = partyID;
-	}
 	public Address getAddress() {
 		return address;
 	}
@@ -65,5 +59,11 @@ public class CMUCustomerUpdateRequest {
 	}
 	public void setEmailAddress(EmailAddress emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+	public String getPartyId() {
+		return partyId;
+	}
+	public void setPartyId(String partyId) {
+		this.partyId = partyId;
 	}
 }
