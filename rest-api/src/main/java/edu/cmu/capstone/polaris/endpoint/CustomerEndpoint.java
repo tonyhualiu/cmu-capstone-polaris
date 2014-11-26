@@ -17,16 +17,11 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-import edu.cmu.capstone.polaris.entity.Address;
 import edu.cmu.capstone.polaris.entity.CMUCustomerUpdateResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoCreateResponse;
-import edu.cmu.capstone.polaris.entity.GeneralInfoInquiryResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoSearchResponse;
-import edu.cmu.capstone.polaris.entity.GeneralInfoUpdateResponse;
-import edu.cmu.capstone.polaris.entity.Phone;
 import edu.cmu.capstone.polaris.factory.CMUResponseFactory;
 import edu.cmu.capstone.polaris.factory.CustomerSearchShortcutType;
-import edu.cmu.capstone.polaris.factory.ResponseFactory;
 import edu.cmu.capstone.polaris.request.CMUCustomerInquiryRequest;
 import edu.cmu.capstone.polaris.request.CMUCustomerSearchRequest;
 import edu.cmu.capstone.polaris.request.CMUCustomerUpdateRequest;
@@ -108,13 +103,17 @@ public class CustomerEndpoint {
 
 	@PUT
 	@Path("/{id}")
-	@ApiOperation(value = "Update information for a customer", notes = "update information for a customer (To be implemented)")
+	@ApiOperation(value = "Update information for a customer", notes = "update information for a customer."
+			+ " To do that, you need to pass a JSON message with the fields you want to update."
+			+ "If you need to update contact information, you have to include the key of the contact information attribute.")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CMUCustomerUpdateResponse update(@ApiParam(value = "ID of the customer to update" ,required = true)@PathParam("id") String id,
-											CMUCustomerUpdateRequest request) {
+	public CMUCustomerUpdateResponse update(
+			@ApiParam(value = "ID of the customer to update", required = true) @PathParam("id") String id,
+			CMUCustomerUpdateRequest request) {
 		request.setPartyID(id);
-		CMUCustomerUpdateResponse response = CMUResponseFactory.getInstance().getCustomerUpdateResponse(request);
+		CMUCustomerUpdateResponse response = CMUResponseFactory.getInstance()
+				.getCustomerUpdateResponse(request);
 		return response;
 	}
 
@@ -145,7 +144,7 @@ public class CustomerEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public GeneralInfoSearchResponse searchBy(
 			@ApiParam(value = "specific search requirement", required = true) @QueryParam("search") String searchString,
-			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort")  String order,
+			@ApiParam(value = "sorting ascending or descending", required = false) @QueryParam("sort") String order,
 			@ApiParam(value = "pagination offset", required = false) @QueryParam("offset") @DefaultValue("0") int offest,
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
 		return null;
