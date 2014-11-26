@@ -18,6 +18,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
 import edu.cmu.capstone.polaris.entity.Address;
+import edu.cmu.capstone.polaris.entity.CMUCustomerUpdateResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoCreateResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoInquiryResponse;
 import edu.cmu.capstone.polaris.entity.GeneralInfoSearchResponse;
@@ -25,8 +26,10 @@ import edu.cmu.capstone.polaris.entity.GeneralInfoUpdateResponse;
 import edu.cmu.capstone.polaris.entity.Phone;
 import edu.cmu.capstone.polaris.factory.CMUResponseFactory;
 import edu.cmu.capstone.polaris.factory.CustomerSearchShortcutType;
+import edu.cmu.capstone.polaris.factory.ResponseFactory;
 import edu.cmu.capstone.polaris.request.CMUCustomerInquiryRequest;
 import edu.cmu.capstone.polaris.request.CMUCustomerSearchRequest;
+import edu.cmu.capstone.polaris.request.CMUCustomerUpdateRequest;
 import edu.cmu.capstone.polaris.util.PolarisAPIJsonFilter;
 import edu.cmu.capstone.polaris.util.PolarisAPIParser;
 
@@ -105,15 +108,14 @@ public class CustomerEndpoint {
 
 	@PUT
 	@Path("/{id}")
-	// @ApiOperation(value = "Update information for this customer", notes =
-	// "update information for a customer", response =
-	// GeneralInfoUpdateResponse.class, responseContainer = "")
 	@ApiOperation(value = "Update information for a customer", notes = "update information for a customer (To be implemented)")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public GeneralInfoUpdateResponse updateAll(@PathParam("id") String id) {
-
-		return null;
+	public CMUCustomerUpdateResponse update(@ApiParam(value = "ID of the customer to update" ,required = true)@PathParam("id") String id,
+											CMUCustomerUpdateRequest request) {
+		request.setPartyID(id);
+		CMUCustomerUpdateResponse response = CMUResponseFactory.getInstance().getCustomerUpdateResponse(request);
+		return response;
 	}
 
 	@POST
