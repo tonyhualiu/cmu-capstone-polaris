@@ -29,3 +29,6 @@ hs_err_pid*
 
 # myscript
 deploy.sh
+
+# sql scripts for demo
+sql-scripts/
