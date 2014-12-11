@@ -225,7 +225,7 @@ public class CustomerEndpoint {
 			@ApiParam(value = "pagination limit", required = false) @QueryParam("limit") @DefaultValue("10") int limit) {
 
 		CMUCustomerSearchRequest request = new CMUCustomerSearchRequest();
-		request.setCity(searchString);
+		request.setLastName(searchString);
 		request.setLimit(limit);
 		request.setOffset(offest);
 		request.setSortCondition(PolarisAPIParser.getParser()

@@ -24,7 +24,12 @@ public class DatabaseConnection {
             + "?user="+user+"&password="+password;
 	private static Connection conn = null;
 	
-
+	public static final String PARTY_KEY = "party_key";
+	public static final String PERSON_KEY = "person_key";
+	public static final String FIRST_NAME = "first_name";
+	public static final String LAST_NAME = "last_name";
+	public static final String CITY = "city";
+	public static final String ZIP = "zip";
 	
 	public static void main(String[] args){
 		try {

@@ -1,5 +1,7 @@
 package edu.cmu.capstone.polaris.factory;
 
+import java.sql.SQLException;
+
 import com.seec.insurance.plm.customerinquiry.dataaccess.CustomerInquiryDA;
 import com.seec.insurance.plm.customerinquiry.model.CustomerInquiryResponse;
 import com.seec.insurance.plm.customersearch.dataaccess.CustomerSearchDA;
@@ -56,15 +58,55 @@ public class CMUResponseFactory implements ResponseFactory{
 		CustomerSearchDA searchDA = new CustomerSearchDA();
 		switch(shortcut){
 			case ZIPCODE:
+			try {
 				return searchDA.searchCustomerbyCityAndZip(null, request.getZip());
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			case CITY:
+			try {
 				return searchDA.searchCustomerbyCityAndZip(request.getCity(), null);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			case FIRSTNAME:
+			try {
 				return searchDA.searchCustomerbyFirstAndLastName(request.getFirstName(), null);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			case LASTNAME:
-				return searchDA.searchCustomerbyFieldName("lastname", request.lastName);
+			try {
+				return searchDA.searchCustomerbyFirstAndLastName(null, request.getLastName());
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			case FULLNAME:
+			try {
 				return searchDA.searchCustomerbyFirstAndLastName(request.getFirstName(), request.getLastName());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		default:
 			break;
 		}
