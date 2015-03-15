@@ -1,7 +1,3 @@
-#Mar 15, 2015
-
-Add tanghao feature.
-
 #Nov 25, 2014
 
 Add Testing example for CREATE and UPDATE operation.
